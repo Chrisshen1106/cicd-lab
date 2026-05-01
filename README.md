@@ -1,6 +1,6 @@
 # CI/CD Lab
 
-這份文件是給學生使用的 Lab 手冊，會帶你完成：
+這份文件是 Lab 手冊，會帶你完成：
 
 1. 啟動 Fastify 應用
 2. 實際 push 到 GitHub 觀察 CI
@@ -38,7 +38,8 @@ npm ci
 啟動服務：
 
 ```bash
-npm start
+npm run build
+npm run start
 ```
 
 驗證服務：
@@ -144,11 +145,24 @@ act push --env GITHUB_REF=refs/heads/<branch>
 
 觀察 `snippets/ci.yml` 與 `snippets/cd.yml`
 
+將 `snippets/ci.yml` 與 `snippets/cd.yml` 複製到 `.github/workflows/` 底下
+
+```bash
+cp snippets/ci.yml .github/workflows/
+cp snippets/cd.yml .github/workflows/
+```
+
 ### 在 feature branch 觀察 ci.yaml 執行結果
 
 ```bash
 git checkout -b feature/a
 act push
+```
+
+觀察 build 出來的 image
+
+```bash
+docker images
 ```
 
 ### 切出 release branch 觀察 ci.yaml 執行結果
@@ -158,6 +172,12 @@ act push
 ```bash
 git checkout -b release/1.0.0
 act push
+```
+
+觀察 build 出來的 image
+
+```bash
+docker images
 ```
 
 ## 思考
