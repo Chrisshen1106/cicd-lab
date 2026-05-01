@@ -126,7 +126,7 @@ act push
 若只想跑單一 workflow，可加 `-W`：
 
 ```bash
-act push -W .github/workflows/ci.yml
+act push -W .github/workflows/ci.yaml
 ```
 
 進階補充：若你需要在「不切 branch」情況下指定事件分支，可以使用：
@@ -143,13 +143,13 @@ act push --env GITHUB_REF=refs/heads/<branch>
 但 image tag 要可以區分出是 feature branch 或是 release branch
 方便我們理解與追蹤特定版本的 source code
 
-觀察 `snippets/ci.yml` 與 `snippets/cd.yml`
+觀察 `snippets/ci.yaml` 與 `snippets/cd.yaml`
 
-將 `snippets/ci.yml` 與 `snippets/cd.yml` 複製到 `.github/workflows/` 底下
+將 `snippets/ci.yaml` 與 `snippets/cd.yaml` 複製到 `.github/workflows/` 底下
 
 ```bash
-cp snippets/ci.yml .github/workflows/
-cp snippets/cd.yml .github/workflows/
+cp snippets/ci.yaml .github/workflows/
+cp snippets/cd.yaml .github/workflows/
 ```
 
 ### 在 feature branch 觀察 ci.yaml 執行結果
