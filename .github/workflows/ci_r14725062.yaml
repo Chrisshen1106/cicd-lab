@@ -1,0 +1,50 @@
+name: CI Pipeline
+
+# 1. 自動觸發 (20%): 設定在 push 時執行
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 檢出程式碼
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 安裝 Node.js 環境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 安裝套件
+      - name: Install dependencies
+        run: npm install
+
+      # 2. 核心檢查項目 (20%): TypeScript typecheck
+      - name: TypeScript typecheck
+        run: npm run typecheck
+
+      # 2. 核心檢查項目 (20%): Prettier check
+      - name: Prettier check
+        run: npm run format:check
+
+      # 2. 核心檢查項目 (20%): Test
+      - name: Run Tests
+        run: npm test
+
+      # 4. 測試結果呈現 (20%): 使用現成 Action 顯示結果
+      # 註：這通常會產生一個 Summary 報告在 GitHub Actions 頁面
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # 確保測試失敗也會跑這步來顯示結果
+        with:
+          name: JEST Tests Report
+          path: ./coverage/test-report.json # 需視專案設定調整路徑
+          reporter: jest-junit
