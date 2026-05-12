@@ -1,3 +1,8 @@
+permissions:
+  checks: write
+  pull-requests: write
+  contents: read
+  
 name: CI Pipeline
 
 # 1. 自動觸發 (20%): 設定在 push 時執行
