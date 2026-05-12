@@ -3,9 +3,9 @@ name: CI Pipeline
 # 1. 自動觸發 (20%): 設定在 push 時執行
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build-and-test:
@@ -25,7 +25,7 @@ jobs:
 
       # 安裝套件
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       # 2. 核心檢查項目 (20%): TypeScript typecheck
       - name: TypeScript typecheck
@@ -37,14 +37,14 @@ jobs:
 
       # 2. 核心檢查項目 (20%): Test
       - name: Run Tests
-        run: npm test
+        run: npm test -- --reporter=junit --outputFile=./coverage/test-report.xml
 
       # 4. 測試結果呈現 (20%): 使用現成 Action 顯示結果
       # 註：這通常會產生一個 Summary 報告在 GitHub Actions 頁面
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: success() || failure()    # 確保測試失敗也會跑這步來顯示結果
+        if: success() || failure()
         with:
-          name: JEST Tests Report
-          path: ./coverage/test-report.json # 需視專案設定調整路徑
-          reporter: jest-junit
+          name: Vitest Tests Report
+          path: ./coverage/test-report.xml
+          reporter: junit
