@@ -47,4 +47,4 @@ jobs:
         with:
           name: Vitest Tests Report
           path: ./coverage/test-report.xml
-          reporter: junit
+          reporter: java-junit
