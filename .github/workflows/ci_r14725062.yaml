@@ -44,7 +44,7 @@ jobs:
       - name: Create coverage directory
         run: mkdir -p coverage
       - name: Run Tests
-        run: npm test -- --reporter=junit --outputFile=coverage/test-report.xml 
+        run: npm test -- --reporter=junit --outputFile=coverage/test-report.xml
 
       # 4. 測試結果呈現 (20%): 使用現成 Action 顯示結果
       # 註：這通常會產生一個 Summary 報告在 GitHub Actions 頁面
@@ -53,5 +53,5 @@ jobs:
         if: success() || failure()
         with:
           name: Vitest Tests Report
-          path: ./coverage/test-report.xml
+          path: coverage/test-report.xml
           reporter: java-junit
