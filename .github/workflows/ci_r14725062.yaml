@@ -2,7 +2,7 @@ permissions:
   checks: write
   pull-requests: write
   contents: read
-  
+
 name: CI Pipeline
 
 # 1. 自動觸發 (20%): 設定在 push 時執行
@@ -41,8 +41,10 @@ jobs:
         run: npm run format:check
 
       # 2. 核心檢查項目 (20%): Test
+      - name: Create coverage directory
+        run: mkdir -p coverage
       - name: Run Tests
-        run: npm test -- --reporter=junit --outputFile=./coverage/test-report.xml
+        run: npm test -- --reporter=junit --outputFile=coverage/test-report.xml 
 
       # 4. 測試結果呈現 (20%): 使用現成 Action 顯示結果
       # 註：這通常會產生一個 Summary 報告在 GitHub Actions 頁面
